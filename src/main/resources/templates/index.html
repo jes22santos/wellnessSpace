@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wellness Space</title>
+    <link th:href="@{/CSS/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top ">
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo.gif" width="110" height="40" alt="" loading="lazy">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mental-treatments">Mental Treatments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/facial-treatments">Facial Treatments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/body-treatments">Body Treatments</a>
+                    </li>
+                </ul>
+                <a class="btn btn-sm btn-outline-info" href="/login">Sign up</a>
+            </div>
+        </nav>
+    </header>
+    <main role="main">
+        <div class="jumbotron">
+            <div class="container">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <h1 class="display-3">Wellcome to Wellness Space!</h1>
+                <br/>
+                <br/>
+                <p>Are you tired of your stressed-out life? Are you looking for a facial or a full body treatment or a mental treatment?  </p>
+                <p>Join our space and allow yourself to breathe slowly. It’s time to finally let go. </p>
+                <br/>
+                <a class="btn btn-info btn-lg" href="#" role="button">Register now &raquo;</a>
+            </div>
+        </div>
+        <div class="container marketing">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="/img/counsoling.jpg" class="bd-placeholder-img rounded-circle" width="140" height="140" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+                    <h2>Mental Treatment</h2>
+                    <p>Treatments on common mental health problems such as depression, anxiety, compulsiveness. Learn to control yourself and win this battle with the help of our professionals</p>
+                    <p><a class="btn btn-info" href="/mental-treatments" role="button">View details &raquo;</a></p>
+                </div>
+                <div class="col-lg-4">
+                    <img src="/img/skincare.jpg" class="bd-placeholder-img rounded-circle" width="140" height="140" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+                    <h2>Facial Treatment</h2>
+                    <p>Extraordinary tightening, cleansing, toning and facial smoothing for a more even complexion! Know the benefits of botox, lifting, facial detox and more. Don't let aging beat you, grow old with healthy skin</p>
+                    <p><a class="btn btn-info" href="/facial-treatments" role="button">View details &raquo;</a></p>
+                </div>
+                <div class="col-lg-4">
+                    <img src="/img/bodycare.jpg" class="bd-placeholder-img rounded-circle" width="140" height="140" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+                    <h2>Body Treatments</h2>
+                    <p>Free your mind and body with our massages and body treatments. We have a unique and exclusive techniques to lose fat tissue, make the orange aspect go away, detox your body with a perfect wrap and green clay .</p>
+                    <p><a class="btn btn-info" href="/body-treatments" role="button">View details &raquo;</a></p>
+                </div>
+            </div>id_category
+        </div>
+    </main>
+    <footer class="container-footer">
+        <p>&copy; 2019-2020 CCT Final Project - Jessica Santos 2019412 &middot; </p>
+    </footer>
+
+</body>
+</html>

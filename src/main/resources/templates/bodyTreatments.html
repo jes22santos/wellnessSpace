@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Body Treatments</title>
+    <link th:href="@{/CSS/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top ">
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo.gif" width="110" height="40" alt="" loading="lazy">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mental-treatments">Mental Treatments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/facial-treatments">Facial Treatments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/body-treatments">Body Treatments</a>
+                    </li>
+                </ul>
+                <a class="btn btn-sm btn-outline-info" href="#">Sign up</a>
+            </div>
+        </nav>
+    </header>
+    <main role="main">
+        <div class="jumbotron">
+            <div class="container">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <h1 class="display-3">Wellcome to Wellness Space!</h1>
+                <br/>
+                <br/>
+                <p>Are you tired of your stressed-out life? Are you looking for a facial or a full body treatment or a mental treatment?  </p>
+                <p>Join our space and allow yourself to breathe slowly. It’s time to finally let go. </p>
+                <br/>
+                <a class="btn btn-info btn-lg" href="#" role="button">Register now &raquo;</a>
+            </div>
+        </div>
+        <div class="container-fluid" th:switch="${bodyTreatments}">
+            <h2 th:case="null">No mental treatment available!</h2>
+            <div class="container-fluid" th:case="*">
+                <h2>Body Treatments</h2>
+                <table class="table">
+                    <thead>
+                    <tr class="table-tr">
+                        <th>Treatment Name</th>
+                        <th>Price</th>
+                        <th>Duration</th>
+                        <th>Details</th>
+                        <th> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="treat : ${bodyTreatments}">
+                        <td class="table-td" th:text="${treat.getName()}"></td>
+                        <td class="table-td" th:text="${treat.getCost()}"></td>
+                        <td class="table-td" th:text="${treat.getDuration()}"></td>
+                        <td class="table-td" th:text="${treat.getDetails()}"></td>
+                        <td class="table-td"><button class="btn btn-sm btn-outline-info" >Book now</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
