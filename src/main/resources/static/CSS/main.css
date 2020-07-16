@@ -56,6 +56,10 @@ body {
     padding-bottom: 40px;
     height: 100%;
 }
+.login .h3 mb-3 font-weight-normal{
+    text-align: center;
+    position: center;
+}
 .form-signin {
     width: 100%;
     max-width: 330px;
@@ -90,4 +94,84 @@ body {
 }
 .h3 mb-3 font-weight-normal{
     text-align: center;
+}
+
+.form-signup{
+    max-width: 500px;
+    padding: 40px 20px;
+    background: #f4f7f8;
+    margin: 10px auto;
+    padding-top: 40px;
+    padding: 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.form-signup fieldset{
+    border: none;
+}
+.form-signup legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+.form-signup label {
+    display: block;
+    margin-bottom: 8px;
+}
+.form-signup input[type="text"],
+.form-signup input[type="email"],
+.form-signup input[type="password"],
+.form-signup textarea,
+.form-signup select {
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color:#8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+}
+.form-signup input[type="text"]:focus,
+.form-signup input[type="email"]:focus,
+.form-signup input[type="password"]:focus,
+.form-signup textarea:focus,
+.form-signup select:focus{
+    background: #d2d9dd;
+}
+.form-signup select{
+    -webkit-appearance: menulist-button;
+    height:35px;
+}
+
+.form-signup input[type="submit"]
+{
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    background: rgb(92, 185, 203);
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: 1px solid rgb(15, 0, 51);
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+    cursor:pointer;
+}
+.form-signup input[type="submit"]:hover
+{
+    background:linear-gradient(to bottom,  rgb(92, 185, 203) 5%, #c1e8e8 100%);
+    background-color: rgb(92, 185, 203);
 }

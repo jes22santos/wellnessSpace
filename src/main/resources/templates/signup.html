@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Sign Up - Wellness Space</title>
+    <link th:href="@{/CSS/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top ">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.gif" width="110" height="40" alt="" loading="lazy">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mentalTreatments">Mental Treatments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/facialTreatments">Facial Treatments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/bodyTreatments">Body Treatments</a>
+                </li>
+            </ul>
+            <a class="btn btn-sm btn-outline-info" href="/signin">Sign in</a>
+        </div>
+    </nav>
+</header>
+<div class="login"></div>
+<div class="form-signup">
+
+    <form th:action="@{/signup}" th:method="post" th:object="${users}">
+        <h1 class="h3 mb-3 font-weight-normal"> Sign Up now </h1>
+
+        <lable>Email</lable>
+        <input type="email" id="username" name="username" th:field="*{username}">
+
+        <lable>Password</lable>
+        <input type="password" id="password" name="password" th:field="*{password}">
+
+        <lable>Password</lable>
+        <input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}">
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

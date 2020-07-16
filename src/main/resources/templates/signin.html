@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Mental Treatments</title>
+    <title>Sign In - Wellness Space</title>
     <link th:href="@{/CSS/main.css}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
     <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
@@ -22,27 +22,34 @@
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/mental-treatments">Mental Treatments</a>
+                        <a class="nav-link" href="/mentalTreatments">Mental Treatments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/facial-treatments">Facial Treatments</a>
+                        <a class="nav-link" href="/facialTreatments">Facial Treatments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/body-treatments">Body Treatments</a>
+                        <a class="nav-link" href="/bodyTreatments">Body Treatments</a>
                     </li>
                 </ul>
-                <a class="btn btn-sm btn-outline-info" href="#">Sign up</a>
+                <a class="btn btn-sm btn-outline-info" href="/signin">Sign in</a>
             </div>
         </nav>
     </header>
     <div class="login">
-        <form class="form-signin">
+
+        <form  role="form" th:action="@{/signin}" th:method="post" class="form-signin">
             <img class="mb-4" src="/img/logo.gif" alt="" width="220" height="80">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <div th:if="${param.error}">
+                <div class="alert alert-danger"> Username or password invalid! </div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-info"> See you soon! </div>
+            </div>
+            <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+            <label for="username" class="sr-only">Email address</label>
+            <input type="email" id="username" name="username" class="form-control" placeholder="Email address" required autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
 
             <button class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
             <div class="checkbox mb-3">
