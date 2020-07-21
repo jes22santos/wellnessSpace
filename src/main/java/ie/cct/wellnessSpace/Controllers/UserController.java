@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-
-@RequestMapping("/user")
+@org.springframework.stereotype.Controller
+@RequestMapping("/")
 public class UserController {
 
 
-        @GetMapping("myAccount")
-        public String index(){
-            return "/myAccount";
+        @GetMapping("/user/myAccount")
+        public String userMyAccount(){
+
+            return "/user/myAccount";
         }
 
 

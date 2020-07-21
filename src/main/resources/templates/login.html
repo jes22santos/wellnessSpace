@@ -31,13 +31,12 @@
                         <a class="nav-link" href="/bodyTreatments">Body Treatments</a>
                     </li>
                 </ul>
-                <a class="btn btn-sm btn-outline-info" href="/signin">Sign in</a>
             </div>
         </nav>
     </header>
     <div class="login">
 
-        <form  role="form" th:action="@{/signin}" th:method="post" class="form-signin">
+        <form  role="form" th:action="@{/login}" th:method="post" class="form-signin">
             <img class="mb-4" src="/img/logo.gif" alt="" width="220" height="80">
             <div th:if="${param.error}">
                 <div class="alert alert-danger"> Username or password invalid! </div>

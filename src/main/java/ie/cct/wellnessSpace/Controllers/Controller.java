@@ -19,12 +19,14 @@ public class Controller {
 
     private TreatmentsRepository treatmentsRepository;
 
+
     @Autowired
     public Controller(TreatmentsRepository treatmentsRepository) {
 
         this.treatmentsRepository = treatmentsRepository;
     }
-    private UserServiceImp userServiceImp = new UserServiceImp();
+    @Autowired
+    private UserServiceImp userServiceImp;
 
 
     @GetMapping("/")
@@ -33,10 +35,10 @@ public class Controller {
         return "index";
     }
 
-    @GetMapping("/signin")
-    public String logIn(){
+    @GetMapping("/login")
+    public String login(Model model){
 
-        return "signin";
+        return "login";
     }
 
     @ModelAttribute("users")
@@ -63,7 +65,7 @@ public class Controller {
 
         userServiceImp.save(user);
 
-        return "redirect:/signin";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/mentalTreatments", method = RequestMethod.GET)
@@ -96,4 +98,10 @@ public class Controller {
         }
         return "/bodyTreatments";
     }
+
+    /*@GetMapping("/user/myAccount")
+    public String userMyAccount(){
+
+        return "/user/myAccount";
+    }*/
 }

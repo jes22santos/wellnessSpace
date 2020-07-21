@@ -18,10 +18,10 @@ public class UserDetailsImp implements UserDetails {
 
         Set<GrantedAuthority> authorities = new HashSet<>();
         //Extract list of Roles and add it into a arraylist type GrantedAuthority
-        this.user.getRoles().forEach(r ->{
-            GrantedAuthority authority = new SimpleGrantedAuthority(r.getRole());
+        //this.user.getRoles()(r ->{
+            GrantedAuthority authority = new SimpleGrantedAuthority(this.user.getRoles().getRole());
             authorities.add(authority);
-        });
+       // });
         return authorities;
     }
 

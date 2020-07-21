@@ -18,8 +18,12 @@ public class Role {
     public Role(String role) {
         this.role = role;
     }
-    //@ManyToMany(mappedBy = "roles")
-    //private Set<Users> user;
+
+    public Role(int id_role) {
+        this.id_role = id_role;
+    }
+
+
 
     public Integer getId_role() {
         return id_role;

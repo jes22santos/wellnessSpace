@@ -1,7 +1,5 @@
 package ie.cct.wellnessSpace.Config;
 
-import ie.cct.wellnessSpace.Repository.UserRepository;
-import ie.cct.wellnessSpace.Services.UserDetailsServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsServiceImp;
-    private UserRepository userRepository;
+    @Autowired
+    public SecurityConfig(UserDetailsService userDetailsServiceImp) {
+        this.userDetailsServiceImp = userDetailsServiceImp;
+    }
+    //private UserRepository userRepository;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -43,33 +45,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/resources","/","/index", "/img/**","/webjars/**", "/CSS/**", "/signup")
                 .permitAll()
                 .antMatchers("/user/**").authenticated()
-                .antMatchers("/admin/**").hasRole("ROLE_ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/templates/**").permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/signin").permitAll()
-                .loginProcessingUrl("/myAccount")
-                .usernameParameter("txtUsername")
-                .passwordParameter("txtPassword")
-                .failureUrl("/signin?error")
+                .loginPage("/login").permitAll()
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .failureUrl("/login?error")
                 .and()
                 .logout()
-                    .logoutSuccessUrl("/signin?logout")
+                    .logoutSuccessUrl("/login?logout")
                     .permitAll();
     }
 
     @Bean
-    UserDetailsServiceImp userDetailsServiceImp(){
-        return new UserDetailsServiceImp(userRepository);
-    }
-    @Bean
     DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(userDetailsServiceImp());
+        daoAuthenticationProvider.setUserDetailsService(this.userDetailsServiceImp);
         return daoAuthenticationProvider;
     }
-
+    @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

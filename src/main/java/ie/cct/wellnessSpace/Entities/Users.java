@@ -3,8 +3,7 @@ package ie.cct.wellnessSpace.Entities;
 
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
+
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "username"))
@@ -16,19 +15,14 @@ public class Users {
     private String username;
     @Column(name="password", nullable=false)
     private String password;
+    @ManyToOne
+    @JoinColumn(name="id_role")
+    private Role role;
 
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name="userrole",
-            joinColumns={@JoinColumn(name="id_user", referencedColumnName="id_user")},
-            inverseJoinColumns={@JoinColumn(name="id_role", referencedColumnName="id_role")})
-    private Collection<Role> roles;
-
-    public Users(String username, String password, Collection<Role> roles) {
+    public Users(String username, String password, Role role) {
         this.username = username;
         this.password = password;
-        this.roles = roles;
+        this.role = role;
     }
 
     public Users() {
@@ -59,11 +53,11 @@ public class Users {
     }
 
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public Role getRoles() {
+        return role;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Role roles) {
+        this.role = roles;
     }
 }
