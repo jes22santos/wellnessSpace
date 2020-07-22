@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Sign Up - Wellness Space</title>
+    <title>Add profile</title>
     <link th:href="@{/CSS/main.css}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
     <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
@@ -30,31 +30,32 @@
                     <a class="nav-link" href="/bodyTreatments">Body Treatments</a>
                 </li>
             </ul>
-            <a class="btn btn-sm btn-outline-info" href="/signin">Sign in</a>
+            <a class="btn btn-sm btn-outline-info" href="/signin">Logout</a>
         </div>
     </nav>
 </header>
 <div class="login"></div>
 <div class="form-signup">
 
-    <form th:action="@{/signup}" th:method="post" th:object="${users}">
+    <form th:action="@{/user/addProfile}" th:method="post" th:object="${customer}">
         <h1 class="h3 mb-3 font-weight-normal"> Sign Up now </h1>
-        <div class="form-group" th:classappend="${#fields.hasErrors('username')}? 'has-error':''">
-            <lable>Email</lable>
-            <input type="email" id="username" name="username" th:field="*{username}">
-            <p class="error-message" th:each="error : ${#fields.errors('username')}" th:text="${error}">Validation error
-            </p>
-        </div>
-        <div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
-            <lable>Password</lable>
-            <input type="password" id="password" name="password" th:field="*{password}">
-            <p class="error-message" th:each="error : ${#fields.errors('password')}" th:text="${error}">Validation error</p>
-        </div>
-        <div class="form-group" th:classappend="${#fields.hasErrors('confirmPassword')}? 'has-error':''">
-            <lable>Confirm Password</lable>
-            <input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}">
-            <p class="error-message" th:each="error : ${#fields.errors('confirmPassword')}" th:text="${error}">Validation error</p>
-        </div>
+
+        <lable>Name</lable>
+        <input type="text" id="name" name="name" th:field="*{name}">
+
+        <lable>Surname</lable>
+        <input type="text" id="surname" name="surname" th:field="*{surname}">
+
+        <lable>Birthday</lable>
+        <input type="date" id="birthday" name="birthday" th:field="*{birthday}">
+        <lable>Phone Number</lable>
+        <input type="text" id="phone" name="phone" th:field="*{phone}">
+        <lable>Weight</lable>
+        <input type="text" id="weight" name="weight" th:field="*{weight}">
+        <lable>Height</lable>
+        <input type="text" id="height" name="height" th:field="*{height}">
+        <lable>Allergies</lable>
+        <input type="text" id="allergies" name="allergies" th:field="*{allergies}">
         <input type="submit">
     </form>
 </div>

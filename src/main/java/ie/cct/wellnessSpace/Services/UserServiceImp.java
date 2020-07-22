@@ -31,6 +31,16 @@ public class UserServiceImp implements UserService {
         userRepository.save(user);
     }
 
+    public void saveAdmin(UserRegister userRegister) {
+
+        Users user = new Users();
+        Role role = new Role(roleRepository.findByRole("ROLE_ADMIN").getId_role());
+        user.setUsername(userRegister.getUsername());
+        user.setPassword(bCryptPasswordEncoder.encode(userRegister.getPassword()));
+        user.setRoles(role);
+        userRepository.save(user);
+    }
+
 
     @Override
     public Users findByUsername(String username) {

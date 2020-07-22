@@ -9,7 +9,10 @@ import java.sql.Time;
 @Table(name="treatments")
 public class Treatments {
     @Id
-    @GeneratedValue
+    //@GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="treat_seq")
+    @SequenceGenerator(name = "treat_seq", sequenceName = "treat_seq", initialValue = 19, allocationSize=1)
+    @Column(name="id_treatment")
     private Integer id_treatment;
     @Column(name="name", nullable=false)
     private String name;

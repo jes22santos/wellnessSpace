@@ -65,7 +65,7 @@ public class Controller {
 
         userServiceImp.save(user);
 
-        return "redirect:/login";
+        return "redirect:/user/addProfile";
     }
 
     @RequestMapping(value = "/mentalTreatments", method = RequestMethod.GET)
@@ -99,9 +99,5 @@ public class Controller {
         return "/bodyTreatments";
     }
 
-    /*@GetMapping("/user/myAccount")
-    public String userMyAccount(){
 
-        return "/user/myAccount";
-    }*/
 }

@@ -11,6 +11,18 @@ public class Category {
     @Column(name="n_category", nullable=false)
     private String n_category;
 
+    public Category(int id_category, String n_category) {
+        this.id_category = id_category;
+        this.n_category = n_category;
+    }
+
+    public Category(int id_category) {
+        this.id_category = id_category;
+    }
+
+    public Category() {
+    }
+
     public int getId_category() {
         return id_category;
     }

@@ -21,7 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SecurityConfig(UserDetailsService userDetailsServiceImp) {
         this.userDetailsServiceImp = userDetailsServiceImp;
     }
-    //private UserRepository userRepository;
+
+    @Autowired
+    SecurityHandler successHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -52,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").permitAll()
                 .usernameParameter("username")
                 .passwordParameter("password")
+                .successHandler(successHandler)
                 .failureUrl("/login?error")
                 .and()
                 .logout()

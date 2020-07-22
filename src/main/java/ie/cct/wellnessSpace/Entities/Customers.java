@@ -8,7 +8,10 @@ import java.sql.Date;
 public class Customers {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="customer_seq")
+    @SequenceGenerator(name = "customer_seq", sequenceName = "customer_seq", initialValue = 1, allocationSize=1)
+    @Column(name="id_customer")
     private Integer id_customer;
     @Column(name="name", nullable=false)
     private String name;
@@ -31,7 +34,7 @@ public class Customers {
     public Customers() {
     }
 
-    public Customers(String name, String surname, double weight, double height, Date birthday, String phone, String allergies, Users user) {
+    public Customers(String name, String surname, double weight, double height, Date birthday, String phone, String allergies) {
         this.name = name;
         this.surname = surname;
         this.weight = weight;
@@ -39,7 +42,6 @@ public class Customers {
         this.birthday = birthday;
         this.phone = phone;
         this.allergies = allergies;
-        this.user = user;
     }
 
     public Integer getId_customer() {

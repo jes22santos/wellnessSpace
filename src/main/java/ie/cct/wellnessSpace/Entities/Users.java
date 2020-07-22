@@ -9,7 +9,10 @@ import javax.persistence.*;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class Users {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //@GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_seq")
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", initialValue = 1, allocationSize=1)
+    @Column(name="id_user")
     private Integer id_user;
     @Column(name="username", nullable=false)
     private String username;
@@ -23,6 +26,10 @@ public class Users {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    public Users(Integer id_user) {
+        this.id_user = id_user;
     }
 
     public Users() {

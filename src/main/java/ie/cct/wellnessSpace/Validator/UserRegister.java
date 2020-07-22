@@ -1,6 +1,7 @@
 package ie.cct.wellnessSpace.Validator;
 
 import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @FieldMatch.List({
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 })
 public class UserRegister {
 
-
+    @Email
     @NotEmpty
     private String username;
 
