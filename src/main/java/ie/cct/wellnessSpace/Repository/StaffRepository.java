@@ -13,4 +13,7 @@ public interface StaffRepository extends JpaRepository<Staffs, Integer> {
 
     @Query(value = "SELECT * from staffs  where id_user=?1", nativeQuery = true)
     Staffs findByUser (Integer id_user);
+
+    @Query(value = "SELECT * from staffs where id_category=?1", nativeQuery = true)
+    Staffs findByCategory (int id_category);
 }

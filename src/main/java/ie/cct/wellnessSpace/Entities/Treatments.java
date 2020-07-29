@@ -26,6 +26,13 @@ public class Treatments {
     @JoinColumn(name="Id_category")
     private Category category;
 
+    public Treatments(Integer id_treatment) {
+        this.id_treatment = id_treatment;
+    }
+
+    public Treatments() {
+    }
+
     public Integer getIdTreatment() {
         return id_treatment;
     }

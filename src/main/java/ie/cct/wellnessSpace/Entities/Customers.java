@@ -44,6 +44,13 @@ public class Customers {
         this.allergies = allergies;
     }
 
+    public Customers(Integer id_customer) {
+        this.id_customer = id_customer;
+    }
+
+
+
+
     public Integer getId_customer() {
         return id_customer;
     }

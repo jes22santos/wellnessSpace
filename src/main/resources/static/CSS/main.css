@@ -121,6 +121,7 @@ body {
 .form-signup input[type="text"],
 .form-signup input[type="email"],
 .form-signup input[type="password"],
+.form-signup input[type="date"],
 .form-signup textarea,
 .form-signup select {
     font-family: Arial, Helvetica, sans-serif;
@@ -144,6 +145,7 @@ body {
 .form-signup input[type="text"]:focus,
 .form-signup input[type="email"]:focus,
 .form-signup input[type="password"]:focus,
+.form-signup input[type="date"]:focus,
 .form-signup textarea:focus,
 .form-signup select:focus{
     background: #d2d9dd;

@@ -56,7 +56,7 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
         } else if (roles.contains("ROLE_ADMIN") && (staff != null)){
             response.sendRedirect("/admin/myAccount");
         } else {
-            response.sendRedirect("/user/myAccount");
+            response.sendRedirect("/user/booking");
         }
     }
 }

@@ -34,6 +34,13 @@ public class Staffs {
     public Staffs() {
     }
 
+    public Staffs(Integer id_staff) {
+        this.id_staff = id_staff;
+    }
+
+    public Staffs(Staffs byUser) {
+    }
+
     public Integer getId_staff() {
         return id_staff;
     }

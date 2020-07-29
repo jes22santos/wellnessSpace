@@ -1,10 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Wellness Space</title>
+    <link th:href="@{/CSS/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
 </head>
 <body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top ">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.gif" width="110" height="40" alt="" loading="lazy">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/myAccount">My Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/myBookings">Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/profile">Profile</a>
+                </li>
+            </ul>
+            <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
+        </div>
+    </nav>
+</header>
+<div class="login"></div>
+<div class="form-signup">
 
+    <form th:action="@{/user/booking}" th:method="post" th:object="${booking}">
+        <h1 class="h3 mb-3 font-weight-normal"> Choose your treatment and book it  </h1>
+        <label>Category</label>
+        <select required id="dropCategory">
+            <option value="0">Select Category</option>
+            <option th:each="cat : ${categoryList}"
+                    th:value="${cat.getId_category()}"
+                    th:text="${cat.getN_category()}"></option>
+        </select>
+        <label>Treatment</label>
+        <select  id="dropTreatments" th:field="*{idTreatment}">
+            <option value="0">Select Treatment</option>
+        </select>
+        <label>Profissional</label>
+        <select id="dropStaffs" th:field="*{idStaff}">
+            <option value="0">Select Profissional</option>
+        </select>
+        <label>Day</label>
+        <input type="date" id="dateChosen" name="date" th:field="*{date}">
+        <label>Time</label>
+        <select id="dropTime" th:field="*{time}">
+            <option value="0"></option>
+        </select>
+        <Label>Notes</Label>
+        <textarea id="notes" name="notes" th:field="*{notes}"> </textarea>
+
+        <input type="submit" name="Book Now">
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#dropCategory").on('change', function(){
+            var categoryID = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url:'/user/loadTreatmentsByCategory/' + categoryID,
+                success: function(result){
+                    var result = JSON.parse(result);
+                    var t = '';
+                    for (var i=0; i < result.length; i++){
+                        t += '<option id="staff" value ="' + result[i].id_treatment + '" th:text="' + result[i].name + '"> ' + result[i].name + ' </option>';
+
+                    }
+                    console.log(t);
+                    $('#dropTreatments').html(t);
+                }
+            })
+            $.ajax({
+                type: 'GET',
+                url:'/user/loadStaffsByCategory/' + categoryID,
+                success: function(result1){
+                    var result1 = JSON.parse(result1);
+                    var st = '';
+                    console.log(result1);
+                    console.log(result1.length);
+                    if (result1.length > 0){
+                        for (var j = 0; j < result1.length; j++) {
+                            st += '<option value ="' + result1[j].id_staff + '" th:text="' + result1[j].name + '"> ' + result1[j].name + ' ' + result1[j].surname + ' </option>';
+
+                        }
+                    } else {
+                        st = '<option value ="' + result1.id_staff + '" th:text="' + result1.name + '"> ' + result1.name + ' ' + result1.surname + ' </option>';
+                    }
+                    console.log(st);
+                    $('#dropStaffs').html(st);
+                }
+            })
+        });
+    });
+    $(document).ready(function(){
+        $("#dateChosen").on('change', function() {
+            var dateChosen = $(this).val();
+            var professionalID = $("#dropStaffs option:selected").val();
+            $.ajax({
+                type: 'GET',
+                url:'/user/loadTimeSlotsFree/' + dateChosen +'/conf/'+professionalID,
+                success: function(resultT) {
+                    console.log(resultT);
+                    var resultTime = resultT;
+                    var slot = '';
+
+                    console.log(resultTime);
+                    console.log(resultTime.length);
+                    if (resultTime == null) {
+                        slot = '<option value =" 0 " th:text="Monday the Wellness Space is Closed"> Monday the Wellness Space is Closed </option>';
+                    }else if (resultTime.length > 0 ){
+                        for (var k = 0; k < resultTime.length; k++) {
+                            slot += '<option value ="' + resultTime[k] + '" th:text="' + resultTime[k] + '"> ' + resultTime[k] + ' </option>';
+
+                        }
+                    } else {
+                        slot = '<option value =" 0 " th:text="There is no availability for this date"> There is no availability for this date </option>';
+                    }
+                    console.log(slot);
+                    $('#dropTime').html(slot);
+                }
+
+                })
+        });
+    });
+
+</script>
 </body>
 </html>
