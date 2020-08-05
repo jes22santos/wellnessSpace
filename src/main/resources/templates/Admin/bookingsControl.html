@@ -1,10 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Wellness Space</title>
+    <link th:href="@{/CSS/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
 </head>
 <body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top ">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.gif" width="110" height="40" alt="" loading="lazy">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/myAccount">My Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/bookingsControl">Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/registerAdmin">New Admin</a>
+                </li>
+            </ul>
+            <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
+        </div>
+    </nav>
+</header>
+<div class="login"></div>
+<form th:action="@{/admin/bookingsControl}" th:method="get" th:object="${bookings}">
 
+    <div class="container-fluid" th:switch="${bookings}">
+        <h2 th:case="null">There is no booking for this period!</h2>
+        <div class="container-fluid" th:case="*">
+            <h2>Bookings Control</h2>
+            <table class="table">
+                <div class="table-td" >
+                    <input type="date" id="dateFrom" name="dateFrom" >
+                    <input type="date" id="dateTo" name="dateTo" >
+                    <input type="submit" class= "btn btn-sm btn-outline-info" value="Search"/>
+                    <a th:href="@{/admin/bookingsControl/}" class= "btn btn-sm btn-outline-info">Clear</a>
+                </div>
+                <thead>
+                <tr class="table-tr">
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Duration</th>
+                    <th>Treatment</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th> </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="book : ${bookings}">
+                    <td class="table-td"  th:text="${book.getDate()}"></td>
+                    <td class="table-td"  th:text="${book.getTime()}"></td>
+                    <td class="table-td"  th:text="${book.getTreatment().getDuration()}"></td>
+                    <td class="table-td"  th:text="${book.getTreatment().getName()}"></td>
+                    <td class="table-td"  th:text="${book.getCustomer().getName()}+ ' ' + ${book.getCustomer().getSurname()}" ></td>
+                    <td class="table-td"  th:text="${book.getStatus().getStatus()}"></td>
+                    <td class="table-td"><a th:href="@{/admin/bookingDetails/(id=${book.getId_booking()})}" class="btn btn-sm btn-outline-info" >View Details/Edit</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
 </body>
 </html>

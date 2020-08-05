@@ -50,6 +50,9 @@ public class UserController {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private ProdBookRepository prodBookRepository;
+
 
 
     @GetMapping("/user/myAccount")
@@ -130,5 +133,22 @@ public class UserController {
         return "user/myBookings";
     }
 
+    @RequestMapping(value = "/user/bookingDetails", method = RequestMethod.GET)
+    public String getBookingDetails(@RequestParam(name="id") Integer id_booking, Model model){
+        Bookings booking = bookingRepository.getOne(id_booking);
+        List<ProdBook> prodBookList = prodBookRepository.findAllByBooking(id_booking);
+        model.addAttribute("booking", booking);
+        model.addAttribute("productsList", prodBookList);
+        return"user/bookingDetails";
+    }
+
+    @RequestMapping(value = "/user/cancelBooking", method = RequestMethod.GET)
+    public String cancelBooking(@RequestParam(name="id") Integer id_booking, Model model){
+        Bookings bookingToUpdate = bookingRepository.getOne(id_booking);
+        bookingToUpdate.setStatus(new Status(3));
+        bookingRepository.save(bookingToUpdate);
+
+        return"redirect:/user/myBookings";
+    }
 
 }

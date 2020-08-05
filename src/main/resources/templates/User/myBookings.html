@@ -61,7 +61,7 @@
                 <td class="table-td"  th:text="${book.getTreatment().getName()}"></td>
                 <td class="table-td"  th:text="${book.getStaff().getName()}+ ' ' + ${book.getStaff().getSurname()}" ></td>
                 <td class="table-td"  th:text="${book.getStatus().getStatus()}"></td>
-                <td class="table-td"><button class="btn btn-sm btn-outline-info" >View Details/Edit</button></td>
+                <td class="table-td"><a th:href="@{/user/bookingDetails/(id=${book.getId_booking()})}" class="btn btn-sm btn-outline-info" >View Details/Edit</a></td>
             </tr>
             </tbody>
         </table>

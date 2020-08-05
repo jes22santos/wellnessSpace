@@ -48,6 +48,10 @@ public class Bookings {
     public Bookings() {
     }
 
+    public Bookings(Integer id_booking) {
+        this.id_booking = id_booking;
+    }
+
     public Integer getId_booking() {
         return id_booking;
     }

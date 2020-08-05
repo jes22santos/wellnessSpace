@@ -35,11 +35,15 @@ public class BookingService {
     @Autowired
     private StatusRepository statusRepository;
 
+    @Autowired
+    private StaffRepository staffRepository;
+
     public List<Time> bookingAvailability(Date date, Integer id_staff){
 
         List<Time> timeFree = new ArrayList<Time>();
         List<TimeSlot> timeSlots = timeSlotRepository.findAll();
         List <Bookings> bookingsList = bookingRepository.findByDateandStaff(date, id_staff);
+        Status booked = new Status(1);
         boolean monday = false;
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -54,7 +58,7 @@ public class BookingService {
         else if (bookingsList.size() > 0 ){
             for (int i = 0; i < bookingsList.size(); i++) {
                 for (int j = 0; j < timeFree.size(); j++) {
-                    if(bookingsList.get(i).getTime().equals(timeFree.get(j))){
+                    if((bookingsList.get(i).getTime().equals(timeFree.get(j))) && (bookingsList.get(i).getStatus().getId_status().equals(booked.getId_status()))){
                         timeFree.remove(j);
                     }
                 }
@@ -87,5 +91,21 @@ public class BookingService {
         Customers customer = new Customers(customerRepository.findByUser(id_user).getId_customer());
 
         return(bookingRepository.findAllByCustomer(customer.getId_customer()));
+    }
+
+    public List<Bookings> staffBookings(String staff){
+
+        Integer id_user = userRepository.findByUsername(staff).getId_user();
+        Staffs getStaff = new Staffs(staffRepository.findByUser(id_user).getId_staff());
+
+        return(bookingRepository.findAllByStaff(getStaff.getId_staff()));
+    }
+
+    public List<Bookings> staffBookingsDates(String staff, Date dateFrom, Date dateTo){
+
+        Integer id_user = userRepository.findByUsername(staff).getId_user();
+        Staffs getStaff = new Staffs(staffRepository.findByUser(id_user).getId_staff());
+
+        return(bookingRepository.findAllByStaffAndDate(getStaff.getId_staff(), dateFrom, dateTo));
     }
 }

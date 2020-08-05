@@ -39,40 +39,23 @@
     </nav>
 </header>
 <div class="login"></div>
-    <form th:action="@{/admin/products}" th:method="get" th:object="${products}">
+<div class="form-signup">
 
-        <div class="container-fluid" th:switch="${products}">
-            <h2 th:case="null">No product found!</h2>
-            <div class="container-fluid" th:case="*">
-                <h2>Products</h2>
-                <table class="table">
-                    <div class="table-td" >
-                        <input type="text" id="search" name="search" >
-                        <input type="submit" class= "btn btn-sm btn-outline-info" value="Search"/>
-                        <a th:href="@{/admin/products/}" class= "btn btn-sm btn-outline-info">Clear</a>
-                    </div>
-                    <thead>
-                    <tr class="table-tr">
-                        <th>Product Code</th>
-                        <th>Name</th>
-                        <th>Cost</th>
-                        <th>Quantity</th>
-                        <th> </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="product : ${products}">
-                        <td class="table-td"  th:text="${product.getId_product()}"></td>
-                        <td class="table-td"  th:text="${product.getName()}"></td>
-                        <td class="table-td"  th:text="${product.getCost()}"></td>
-                        <td class="table-td"  th:text="${product.getQuantity()}"></td>
-                        <td class="table-td"><button class="btn btn-sm btn-outline-info" >Edit</button></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <form th:action="@{/admin/addNewProduct}" th:method="post" th:object="${product}">
+        <h1 class="h3 mb-3 font-weight-normal"> Sign Up now </h1>
+
+        <lable>Product's Name</lable>
+        <input type="text" id="name" name="name" th:field="*{name}">
+
+        <lable>Stock Quantity</lable>
+        <input type="text" id="quantity" name="quantity" th:field="*{quantity}">
+
+        <lable>Cost</lable>
+        <input type="text" id="cost" name="cost" th:field="*{cost}">
+
+        <input type="submit">
     </form>
+</div>
 
 </body>
 </html>

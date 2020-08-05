@@ -39,40 +39,27 @@
     </nav>
 </header>
 <div class="login"></div>
-    <form th:action="@{/admin/products}" th:method="get" th:object="${products}">
+<div class="form-signup">
 
-        <div class="container-fluid" th:switch="${products}">
-            <h2 th:case="null">No product found!</h2>
-            <div class="container-fluid" th:case="*">
-                <h2>Products</h2>
-                <table class="table">
-                    <div class="table-td" >
-                        <input type="text" id="search" name="search" >
-                        <input type="submit" class= "btn btn-sm btn-outline-info" value="Search"/>
-                        <a th:href="@{/admin/products/}" class= "btn btn-sm btn-outline-info">Clear</a>
-                    </div>
-                    <thead>
-                    <tr class="table-tr">
-                        <th>Product Code</th>
-                        <th>Name</th>
-                        <th>Cost</th>
-                        <th>Quantity</th>
-                        <th> </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="product : ${products}">
-                        <td class="table-td"  th:text="${product.getId_product()}"></td>
-                        <td class="table-td"  th:text="${product.getName()}"></td>
-                        <td class="table-td"  th:text="${product.getCost()}"></td>
-                        <td class="table-td"  th:text="${product.getQuantity()}"></td>
-                        <td class="table-td"><button class="btn btn-sm btn-outline-info" >Edit</button></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <form th:action="@{/admin/addProdBook}" th:method="post" th:object="${prodBook}">
+
+        <lable>Booking ID</lable>
+        <input type="text" id="id_booking" name="id_booking" th:value="${booking.getId_booking()}">
+
+        <lable>Product</lable>
+        <select id="dropProducts" name="id_product" >
+            <option value="0">Select Product</option>
+            <option th:each="product : ${products}"
+                    th:value="${product.getId_product()}"
+                    th:text="${product.getName()}"></option>
+        </select>
+
+        <lable>Quantity</lable>
+        <input type="text" id="quantity" name="quantity" >
+
+        <input type="submit" value="Add">
     </form>
+</div>
 
 </body>
 </html>

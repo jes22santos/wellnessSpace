@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wellness Space</title>
+    <link th:href="@{/CSS/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top ">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.gif" width="110" height="40" alt="" loading="lazy">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/myAccount">My Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/bookingsControl">Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/registerAdmin">New Admin</a>
+                </li>
+            </ul>
+            <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
+        </div>
+    </nav>
+</header>
+<div class="login"></div>
+<div class="form-signup">
+    <form th:action="@{/admin/bookingDetails}" th:method="get" th:object="${booking}">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label>Booking Code</label>
+                <input type="text" class="form-control" id="idBooking" th:value="${booking.getId_booking()}" th:placeholder="${booking.getId_booking()}">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Booking Status</label>
+                <input type="text" class="form-control" th:placeholder="${booking.getStatus().getStatus()}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <lable>Date</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getDate()}">
+            </div>
+            <div class="col">
+                <lable>Time</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getTime()}">
+            </div>
+            <div class="col">
+                <lable>Duration</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getTreatment().getDuration()}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <lable>Treatment</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getTreatment().getName()}">
+            </div>
+            <div class="col">
+                <lable>Price</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getTreatment().getCost()}">
+            </div>
+            <div class="col">
+                <lable>Customer</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getCustomer().getName()}+ ' ' + ${booking.getCustomer().getSurname()}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <lable>Notes</lable>
+                <textarea class="form-control" th:placeholder="${booking.getNotes()}"></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <lable>Change Status</lable>
+                <select id="dropStatus" name="dropStatus">
+                    <option value="0">Select Status</option>
+                    <option th:each="statu : ${status}"
+                            th:value="${statu.getId_status()}"
+                            th:text="${statu.getStatus()}"></option>
+                </select>
+
+            </div>
+            <div class="col">
+                <lable></lable>
+                <a id="change" href="#" class="btn btn-sm btn-outline-info" >Change Status</a>
+            </div>
+        </div>
+    </form>
+
+    <form>
+        <div class="container-fluid" th:switch="${productsList}">
+            <a id="addProduct" th:href="@{/admin/addProdBook/(id=${booking.getId_booking()})}" class="btn btn-sm btn-outline-info" >Add new Product</a>
+            <h2 th:case="null">There is no product for this booking</h2>
+            <div class="container-fluid" th:case="*">
+                <table class="table">
+                    <thead>
+                    <tr class="table-tr">
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Cost unit</th>
+                        <th>Cost Total </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="prod : ${productsList}">
+                        <td class="table-td"  th:text="${prod.getProduct().getName()}"></td>
+                        <td class="table-td"  th:text="${prod.getQuantity()}"></td>
+                        <td class="table-td"  th:text="${prod.getProduct().getCost()}"></td>
+                        <td class="table-td"  th:text="${prod.getProduct().getCost()} * ${prod.getQuantity()}"></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#dropStatus").on('change', function() {
+                var statusID = $(this).val();
+                console.log(statusID)
+                var bookingID = $(idBooking).val();
+                console.log(bookingID)
+
+            $("#change").attr("href", "http://localhost:8080/admin/changeStatus?id="+bookingID+"&status="+statusID)
+        })
+    })
+</script>
+</body>
+</html>
