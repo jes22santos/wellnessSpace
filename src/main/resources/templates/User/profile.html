@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wellness Space</title>
+    <link th:href="@{/CSS/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top ">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.gif" width="110" height="40" alt="" loading="lazy">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div sec:authorize="hasRole('USER')">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/myAccount">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/myBookings">My Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/booking">New Booking</a>
+                    </li>
+                </ul>
+            </div>
+            <div sec:authorize="hasRole('ADMIN')">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/myAccount">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/bookingsControl">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/registerAdmin">New Admin</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
+        </div>
+    </nav>
+</header>
+<div class="login"></div>
+<div class="form-signup">
+    <form th:action="@{/user/profile}" th:method="get" th:object="${customer}">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label>Custumer ID</label>
+                <input type="text" class="form-control" id="idCustomer" th:value="${customer.getId_customer()}" th:placeholder="${customer.getId_customer()}">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Name</label>
+                <input type="text" class="form-control" th:placeholder="${customer.getName()}+' '+${customer.getSurname()}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <lable>Birthday</lable>
+                <input type="text" class="form-control" th:placeholder="${customer.getBirthday()}">
+            </div>
+            <div class="col">
+                <lable>Phone</lable>
+                <input type="text" class="form-control" th:placeholder="${customer.getPhone()}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <lable>Weight</lable>
+                <input type="text" class="form-control" th:placeholder="${customer.getWeight()}">
+            </div>
+            <div class="col">
+                <lable>Height</lable>
+                <input type="text" class="form-control" th:placeholder="${customer.getHeight()}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <lable>Allergies</lable>
+                <textarea class="form-control" th:placeholder="${customer.getAllergies()}"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

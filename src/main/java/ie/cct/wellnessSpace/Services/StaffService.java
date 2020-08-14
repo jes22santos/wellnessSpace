@@ -25,6 +25,9 @@ public class StaffService {
 
     private Staffs staff = new Staffs();
 
+    /*
+    Method to save a staff
+     */
     public void save(StaffRegister staff, String username) {
         Users user = new Users(userRepository.findByUsername(username).getId_user());
         Category category = new Category(categoryRepository.findByN_category(staff.getCategory()).getId_category());

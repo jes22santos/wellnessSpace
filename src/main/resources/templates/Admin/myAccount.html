@@ -38,6 +38,56 @@
         </div>
     </nav>
 </header>
-
+<div class="login"></div>
+<main role="main">
+    <div class="container-fluid">
+        <div class="table">
+            <H3> Welcome <span th:text="${staff.getName()}+ ' ' + ${staff.getSurname()}"></span></H3>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <a href="/admin/addNewProduct" class="btn btn-sm btn-outline-info" >Add new Product</a>
+            </div>
+            <div class="col-lg-4">
+                <a href="/admin/bookingsControl" class="btn btn-sm btn-outline-info" >Check your bookings </a>
+            </div>
+            <div class="col-lg-4">
+                <a href="/admin/registerAdmin" class="btn btn-sm btn-outline-info" >Add new Admin User </a>
+            </div>
+        </div>
+        
+    </div>
+    <div class="container-fluid" th:switch="${bookings}">
+        <h2 th:case="null">There is no booking for today!</h2>
+        <div class="container-fluid" th:case="*">
+            <h2>Daily Report</h2>
+            <table class="table">
+                <thead>
+                <tr class="table-tr">
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Duration</th>
+                    <th>Treatment</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${bookings}">
+                    <td class="table-td"  th:text="${#dates.format(book.getDate(),'dd-MM-yyyy')}"></td>
+                    <td class="table-td"  th:text="${book.getTime()}"></td>
+                    <td class="table-td"  th:text="${book.getTreatment().getDuration()}"></td>
+                    <td class="table-td"  th:text="${book.getTreatment().getName()}"></td>
+                    <td class="table-td"  th:text="${book.getCustomer().getName()}+ ' ' + ${book.getCustomer().getSurname()}" ></td>
+                    <td class="table-td"  th:text="${book.getStatus().getStatus()}"></td>
+                    <td class="table-td"><a th:href="@{/admin/bookingDetails/(id=${book.getId_booking()})}" class="btn btn-sm btn-outline-info" >View Details/Edit</a></td>
+                    <td class="table-td"><a th:href="@{/user/profile/(id=${book.getCustomer().getId_customer()})}" class="btn btn-sm btn-outline-info" >View Customer info</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</main>
 </body>
 </html>

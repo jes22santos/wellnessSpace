@@ -47,6 +47,7 @@
                 <h2>Products</h2>
                 <table class="table">
                     <div class="table-td" >
+                        <a th:href="@{/admin/addNewProduct/}" class= "btn btn-sm btn-outline-info">Add new Product</a>
                         <input type="text" id="search" name="search" >
                         <input type="submit" class= "btn btn-sm btn-outline-info" value="Search"/>
                         <a th:href="@{/admin/products/}" class= "btn btn-sm btn-outline-info">Clear</a>
@@ -64,7 +65,7 @@
                     <tr th:each="product : ${products}">
                         <td class="table-td"  th:text="${product.getId_product()}"></td>
                         <td class="table-td"  th:text="${product.getName()}"></td>
-                        <td class="table-td"  th:text="${product.getCost()}"></td>
+                        <td class="table-td"  th:text="${#numbers.formatDecimal(product.getCost(), 0, 'COMMA', 2, 'POINT')}"></td>
                         <td class="table-td"  th:text="${product.getQuantity()}"></td>
                         <td class="table-td"><button class="btn btn-sm btn-outline-info" >Edit</button></td>
                     </tr>

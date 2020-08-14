@@ -11,11 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+    /*
+        Spring Security configuration class, code based on spring security course by Romanian Coder (2019)
+     */
     private UserDetailsService userDetailsServiceImp;
     @Autowired
     public SecurityConfig(UserDetailsService userDetailsServiceImp) {
@@ -30,16 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
 
     }
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/");
-        web.ignoring().antMatchers("/index");
-        web.ignoring().antMatchers("/bodyTreatments");
-        web.ignoring().antMatchers("/facialTreatments");
-        web.ignoring().antMatchers("/mentalTreatments");
-        web.ignoring().antMatchers("/signup");
-    }
 
+    /*
+        Declaring which pages needs authentication to be opened, which needs authorization by having rule = admin
+        fixing my own login page instead spring security login page
+        Setting sucessHandler class as the responsible to deal with the redirect after authentication
+        Setting logout page
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -62,6 +62,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll();
     }
 
+    /*
+        Dao authentication provider servive to handle the data conference between what the application is passing and what is in the data base
+        using BCrypt and userDetailsService to get all information.
+     */
     @Bean
     DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -69,10 +73,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setUserDetailsService(this.userDetailsServiceImp);
         return daoAuthenticationProvider;
     }
+    /*
+        Bean for BCrypt passwordEncoder to be used to the authentication provider to check the password, once
+        the passwords are saved encoded in the database.
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
+
+
 
 
 }

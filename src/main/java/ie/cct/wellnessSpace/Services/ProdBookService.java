@@ -18,6 +18,9 @@ public class ProdBookService {
     @Autowired
     private ProductRepository productRepository;
 
+    /*
+        Method to add a product to a booking and alter the quantity of this product on the product table
+     */
     public void save(ProdBookRegister prodBookRegister){
         ProdBook newProdBook = new ProdBook();
         newProdBook.setBooking(new Bookings(prodBookRegister.getId_booking()));
@@ -29,5 +32,17 @@ public class ProdBookService {
         int quantity = productToreduce.getQuantity() - newProdBook.getQuantity();
         productToreduce.setQuantity(quantity);
         productRepository.save(productToreduce);
+    }
+    /*
+    Method to delete a product from a booking
+     */
+    public void delete(ProdBook toCancel){
+
+        if (toCancel != null) {
+            Products products = productRepository.getOne(toCancel.getProduct().getId_product());
+            int newQuantity = products.getQuantity() + toCancel.getQuantity();
+            products.setQuantity(newQuantity);
+            prodBookRepository.deleteById(toCancel.getId_prodBook());
+        }
     }
 }

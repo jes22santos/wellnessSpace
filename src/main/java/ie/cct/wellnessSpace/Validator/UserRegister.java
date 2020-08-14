@@ -1,12 +1,8 @@
 package ie.cct.wellnessSpace.Validator;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-@FieldMatch.List({
-        @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
-})
 public class UserRegister {
 
     @Email

@@ -25,10 +25,10 @@
                     <a class="nav-link" href="/user/myAccount">My Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/myBookings">Bookings</a>
+                    <a class="nav-link" href="/user/myBookings">My Bookings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/profile">Profile</a>
+                    <a class="nav-link" href="/user/booking">New Booking</a>
                 </li>
             </ul>
             <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
@@ -48,17 +48,17 @@
                     th:text="${cat.getN_category()}"></option>
         </select>
         <label>Treatment</label>
-        <select  id="dropTreatments" th:field="*{idTreatment}">
+        <select required id="dropTreatments" th:field="*{idTreatment}">
             <option value="0">Select Treatment</option>
         </select>
         <label>Profissional</label>
-        <select id="dropStaffs" th:field="*{idStaff}">
+        <select required id="dropStaffs" th:field="*{idStaff}">
             <option value="0">Select Profissional</option>
         </select>
         <label>Day</label>
-        <input type="date" id="dateChosen" name="date" th:field="*{date}">
+        <input required type="date" id="dateChosen" name="date" th:field="*{date}">
         <label>Time</label>
-        <select id="dropTime" th:field="*{time}">
+        <select required id="dropTime" th:field="*{time}">
             <option value="0"></option>
         </select>
         <Label>Notes</Label>
@@ -73,6 +73,7 @@
     $(document).ready(function(){
         $("#dropCategory").on('change', function(){
             var categoryID = $(this).val();
+
             $.ajax({
                 type: 'GET',
                 url:'/user/loadTreatmentsByCategory/' + categoryID,
@@ -111,35 +112,44 @@
     });
     $(document).ready(function(){
         $("#dateChosen").on('change', function() {
-            var dateChosen = $(this).val();
-            var professionalID = $("#dropStaffs option:selected").val();
-            $.ajax({
-                type: 'GET',
-                url:'/user/loadTimeSlotsFree/' + dateChosen +'/conf/'+professionalID,
-                success: function(resultT) {
-                    console.log(resultT);
-                    var resultTime = resultT;
-                    var slot = '';
+            var category = $("#dropCategory").val();
+            console.log(category);
+            if (category == 0){
+                document.getElementById("dateChosen").disabled
+                $("#dateChosen").val(0);
+                alert("Please choose a category first")
+            }else {
+                var dateChosen = $(this).val();
+                var professionalID = $("#dropStaffs option:selected").val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/user/loadTimeSlotsFree/' + dateChosen + '/conf/' + professionalID,
+                    success: function (resultT) {
+                        console.log(resultT);
+                        var resultTime = resultT;
+                        var slot = '';
 
-                    console.log(resultTime);
-                    console.log(resultTime.length);
-                    if (resultTime == null) {
-                        slot = '<option value =" 0 " th:text="Monday the Wellness Space is Closed"> Monday the Wellness Space is Closed </option>';
-                    }else if (resultTime.length > 0 ){
-                        for (var k = 0; k < resultTime.length; k++) {
-                            slot += '<option value ="' + resultTime[k] + '" th:text="' + resultTime[k] + '"> ' + resultTime[k] + ' </option>';
+                        console.log(resultTime);
+                        console.log(resultTime.length);
+                        if (resultTime == null) {
+                            slot = '<option value =" 0 " th:text="Monday the Wellness Space is Closed"> Monday the Wellness Space is Closed </option>';
+                        } else if (resultTime.length > 0) {
+                            for (var k = 0; k < resultTime.length; k++) {
+                                slot += '<option value ="' + resultTime[k] + '" th:text="' + resultTime[k] + '"> ' + resultTime[k] + ' </option>';
 
+                            }
+                        } else {
+                            slot = '<option value =" 0 " th:text="There is no availability for this date"> There is no availability for this date </option>';
                         }
-                    } else {
-                        slot = '<option value =" 0 " th:text="There is no availability for this date"> There is no availability for this date </option>';
+                        console.log(slot);
+                        $('#dropTime').html(slot);
                     }
-                    console.log(slot);
-                    $('#dropTime').html(slot);
-                }
 
                 })
+            }
         });
     });
+
 
 </script>
 </body>

@@ -37,7 +37,13 @@ public class BookingService {
 
     @Autowired
     private StaffRepository staffRepository;
-
+    /*
+        This method is responsible for checking the time slot availability for an specific day and professional.
+        it first checks if the day is a monday or a day before the actual day
+        and then get all bookings of this professional for that day and compares time by time, removing from the free time list the
+        time that is already booked.
+        and returns the free time list
+     */
     public List<Time> bookingAvailability(Date date, Integer id_staff){
 
         List<Time> timeFree = new ArrayList<Time>();
@@ -68,6 +74,11 @@ public class BookingService {
 
     }
 
+    /*
+        This method is responsible to save the booking in the database using JPA repository, but before saving, it creates new
+        instance of all attributes and set them based on the information that came from parameter as a booking register instance
+     */
+
     public void save(BookingRegister booking, String username)  {
         Integer id_user = userRepository.findByUsername(username).getId_user();
         Customers customer = new Customers(customerRepository.findByUser(id_user).getId_customer());
@@ -85,6 +96,9 @@ public class BookingService {
         bookingRepository.save(newBooking);
     }
 
+    /*
+        Method used to bring a list of all bookings based on the customer ID
+     */
     public List<Bookings> joinBookingSql(String user){
 
         Integer id_user = userRepository.findByUsername(user).getId_user();
@@ -92,7 +106,9 @@ public class BookingService {
 
         return(bookingRepository.findAllByCustomer(customer.getId_customer()));
     }
-
+    /*
+        Method used to bring a list of all bookings based on the staff id
+     */
     public List<Bookings> staffBookings(String staff){
 
         Integer id_user = userRepository.findByUsername(staff).getId_user();
@@ -100,7 +116,9 @@ public class BookingService {
 
         return(bookingRepository.findAllByStaff(getStaff.getId_staff()));
     }
-
+    /*
+        method used to filter by dates bookings of a staff
+     */
     public List<Bookings> staffBookingsDates(String staff, Date dateFrom, Date dateTo){
 
         Integer id_user = userRepository.findByUsername(staff).getId_user();

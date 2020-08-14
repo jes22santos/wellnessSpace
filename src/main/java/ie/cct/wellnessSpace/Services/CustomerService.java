@@ -19,7 +19,9 @@ public class CustomerService {
     private UserRepository userRepository;
 
     private Customers customer;
-
+    /*
+        Method to save a customer
+     */
     public void save(Customers customer, String username) {
         Users user = new Users(userRepository.findByUsername(username).getId_user());
         this.customer = customer;

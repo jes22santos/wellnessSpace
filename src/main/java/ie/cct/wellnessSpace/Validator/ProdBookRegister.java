@@ -1,12 +1,14 @@
 package ie.cct.wellnessSpace.Validator;
 
+import javax.validation.constraints.NotEmpty;
+
 public class ProdBookRegister {
 
     private Integer id_booking;
     private Integer id_product;
     private int quantity;
 
-    public ProdBookRegister(Integer id_booking, Integer id_product, int quantity) {
+    public ProdBookRegister(@NotEmpty Integer id_booking, @NotEmpty Integer id_product, @NotEmpty int quantity) {
         this.id_booking = id_booking;
         this.id_product = id_product;
         this.quantity = quantity;

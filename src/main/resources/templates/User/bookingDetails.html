@@ -25,10 +25,10 @@
                     <a class="nav-link" href="/user/myAccount">My Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/myBookings">Bookings</a>
+                    <a class="nav-link" href="/user/myBookings">My Bookings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/profile">Profile</a>
+                    <a class="nav-link" href="/user/booking">New Booking</a>
                 </li>
             </ul>
             <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
@@ -51,7 +51,7 @@
     <div class="form-row">
         <div class="col">
             <lable>Date</lable>
-            <input type="text" class="form-control" th:placeholder="${booking.getDate()}">
+            <input type="text" class="form-control" th:placeholder="${#dates.format(booking.getDate(),'dd-MM-yyyy')}">
         </div>
         <div class="col">
             <lable>Time</lable>
@@ -69,7 +69,7 @@
         </div>
         <div class="col">
             <lable>Price</lable>
-            <input type="text" class="form-control" th:placeholder="${booking.getTreatment().getCost()}">
+            <input type="text" class="form-control" th:placeholder="${#numbers.formatDecimal(booking.getTreatment().getCost(), 0, 'COMMA', 2, 'POINT')}">
         </div>
         <div class="col">
             <lable>Professional</lable>
@@ -87,7 +87,7 @@
             <a th:href="@{/user/cancelBooking/(id=${booking.getId_booking()})}" class="btn btn-sm btn-outline-info" >Cancel</a>
         </div>
     </div>
-
+    <div class="login"></div>
     <div class="container-fluid" th:switch="${productsList}">
         <h2 th:case="null">There is no product for this booking</h2>
         <div class="container-fluid" th:case="*">
@@ -105,8 +105,8 @@
                 <tr th:each="prod : ${productsList}">
                     <td class="table-td"  th:text="${prod.getProduct().getName()}"></td>
                     <td class="table-td"  th:text="${prod.getQuantity()}"></td>
-                    <td class="table-td"  th:text="${prod.getProduct().getCost()}"></td>
-                    <td class="table-td"  th:text="${prod.getProduct().getCost()} * ${prod.getQuantity()}"></td>
+                    <td class="table-td"  th:text="${#numbers.formatDecimal(prod.getProduct().getCost(), 0, 'COMMA', 2, 'POINT')}"></td>
+                    <td class="table-td"  th:text="${#numbers.formatDecimal(prod.getProduct().getCost(), 0, 'COMMA', 2, 'POINT')} * ${prod.getQuantity()}"></td>
 
                 </tr>
                 </tbody>

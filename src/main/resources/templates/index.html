@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity">
 <head>
     <meta charset="UTF-8">
     <title>Wellness Space</title>
@@ -31,7 +31,18 @@
                         <a class="nav-link" href="/bodyTreatments">Body Treatments</a>
                     </li>
                 </ul>
-                <a class="btn btn-sm btn-outline-info" href="/login">Sign in</a>
+
+                    <div sec:authorize="hasRole('USER')">
+                            <a class="btn btn-sm btn-outline-info" href="/user/myAccount">My Account</a>
+                            <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
+                    </div>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <a class="btn btn-sm btn-outline-info" href="/admin/myAccount">Admin Area</a>
+                        <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
+                    </div>
+                    <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-sm btn-outline-info" href="/login">Sign in</a>
+                    </div>
             </div>
         </nav>
     </header>
@@ -48,7 +59,9 @@
                 <p>Are you tired of your stressed-out life? Are you looking for a facial or a full body treatment or a mental treatment?  </p>
                 <p>Join our space and allow yourself to breathe slowly. It’s time to finally let go. </p>
                 <br/>
-                <a class="btn btn-info btn-lg" href="/signup" role="button">Register now &raquo;</a>
+                <div sec:authorize="isAnonymous()">
+                  <a class="btn btn-info btn-lg" href="/signup" role="button">Register now &raquo;</a>
+                </div>
             </div>
         </div>
         <div class="container marketing">
@@ -71,7 +84,7 @@
                     <p>Free your mind and body with our massages and body treatments. We have a unique and exclusive techniques to lose fat tissue, make the orange aspect go away, detox your body with a perfect wrap and green clay .</p>
                     <p><a class="btn btn-info" href="/bodyTreatments" role="button">View details &raquo;</a></p>
                 </div>
-            </div>id_category
+            </div>
         </div>
     </main>
     <footer class="container-footer">

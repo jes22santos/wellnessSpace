@@ -66,7 +66,7 @@
                 <tbody>
 
                 <tr th:each="book : ${bookings}">
-                    <td class="table-td"  th:text="${book.getDate()}"></td>
+                    <td class="table-td"  th:text="${#dates.format(book.getDate(), 'dd-MM-yyyy')}"></td>
                     <td class="table-td"  th:text="${book.getTime()}"></td>
                     <td class="table-td"  th:text="${book.getTreatment().getDuration()}"></td>
                     <td class="table-td"  th:text="${book.getTreatment().getName()}"></td>

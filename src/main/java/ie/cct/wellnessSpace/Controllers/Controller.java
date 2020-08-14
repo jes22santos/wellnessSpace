@@ -11,36 +11,45 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @org.springframework.stereotype.Controller
 @RequestMapping("/")
 public class Controller {
 
-    private TreatmentsRepository treatmentsRepository;
-
 
     @Autowired
-    public Controller(TreatmentsRepository treatmentsRepository) {
+    private TreatmentsRepository treatmentsRepository;
 
-        this.treatmentsRepository = treatmentsRepository;
-    }
     @Autowired
     private UserServiceImp userServiceImp;
 
-
-    @GetMapping("/")
-    public String index(){
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Mapping request get to /index and /
+     */
+    @GetMapping({"/index","/"})
+    public String index(Principal principal){
 
         return "index";
     }
-
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Mapping request get to /login
+     */
     @GetMapping("/login")
     public String login(Model model){
 
         return "login";
     }
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Mapping request Get to /signup
+        Mapping request Post to /signup
+        Method to check if there is already any user using this username and also if passwords are the same
 
+     */
     @ModelAttribute("users")
     public UserRegister userRegister() {
         return new UserRegister();
@@ -59,6 +68,9 @@ public class Controller {
         if (existing != null) {
             result.rejectValue("username", null, "There is already an account registered with that email");
         }
+        if (!user.getPassword().equals(user.getConfirmPassword())){
+            result.rejectValue("password", null, "Passwords do not match");
+        }
         if (result.hasErrors()) {
             return "signup";
         }
@@ -67,7 +79,10 @@ public class Controller {
 
         return "redirect:/user/addProfile";
     }
-
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Mapping for the 3 treatments pages, getting information from database using JPA repository
+     */
     @RequestMapping(value = "/mentalTreatments", method = RequestMethod.GET)
     public String listMental(Model model) {
         int id_category = 3;

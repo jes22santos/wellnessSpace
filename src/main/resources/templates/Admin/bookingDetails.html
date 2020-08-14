@@ -54,7 +54,7 @@
         <div class="form-row">
             <div class="col">
                 <lable>Date</lable>
-                <input type="text" class="form-control" th:placeholder="${booking.getDate()}">
+                <input type="text" class="form-control" th:placeholder="${#dates.format(booking.getDate(), 'dd-MM-yyyy')}">
             </div>
             <div class="col">
                 <lable>Time</lable>
@@ -72,7 +72,7 @@
             </div>
             <div class="col">
                 <lable>Price</lable>
-                <input type="text" class="form-control" th:placeholder="${booking.getTreatment().getCost()}">
+                <input type="text" class="form-control" th:placeholder="${#numbers.formatDecimal(booking.getTreatment().getCost(), 0, 'COMMA', 2, 'POINT')}">
             </div>
             <div class="col">
                 <lable>Customer</lable>
@@ -115,6 +115,7 @@
                         <th>Quantity</th>
                         <th>Cost unit</th>
                         <th>Cost Total </th>
+                        <th> </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -122,12 +123,17 @@
                     <tr th:each="prod : ${productsList}">
                         <td class="table-td"  th:text="${prod.getProduct().getName()}"></td>
                         <td class="table-td"  th:text="${prod.getQuantity()}"></td>
-                        <td class="table-td"  th:text="${prod.getProduct().getCost()}"></td>
-                        <td class="table-td"  th:text="${prod.getProduct().getCost()} * ${prod.getQuantity()}"></td>
-
+                        <td class="table-td"  th:text="${#numbers.formatDecimal(prod.getProduct().getCost(), 0, 'COMMA', 2, 'POINT')}"></td>
+                        <td class="table-td"  th:text="${#numbers.formatDecimal(prod.getProduct().getCost(), 0, 'COMMA', 2, 'POINT')} * ${prod.getQuantity()}"></td>
+                        <td class="table-td" > <a th:href="@{/admin/deleteProdBook/(id=${prod.getId_prodBook()})}" class="btn btn-sm btn-outline-info">x</a></td>
                     </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <a id="invoice" th:href="@{/admin/invoice/(id=${booking.getId_booking()})}" class="btn btn-sm btn-outline-info" >Invoice</a>
             </div>
         </div>
     </form>

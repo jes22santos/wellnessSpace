@@ -53,14 +53,23 @@ public class UserController {
     @Autowired
     private ProdBookRepository prodBookRepository;
 
-
-
+    @Autowired
+    private UserRepository userRepository;
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Endpoint to open get request myAccount for users
+     */
     @GetMapping("/user/myAccount")
-    public String userMyAccount(){
-
+    public String userMyAccount(Model model, Principal principal){
+        Integer user = userRepository.findByUsername(principal.getName()).getId_user();
+        Customers customer = customerRepository.findByUser(user);
+        model.addAttribute("customer", customer);
         return "/user/myAccount";
     }
-
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Add profile to a customer linking it to a user
+     */
     @ModelAttribute("customer")
     public Customers customer() {
 
@@ -81,6 +90,34 @@ public class UserController {
         return "redirect:/user/myAccount";
     }
 
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Endpoint to open user profile details, it check the authority from the user who made the request
+        when request comes from admin user this method get the customer ID passed by parameter
+        when request comes from customer user this method get the username and find their own profile
+     */
+    @GetMapping("/user/profile")
+    public String userProfile(Model model, Authentication authentication, Integer id){
+
+        boolean userRole = authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
+        if(userRole){
+            Integer user = userRepository.findByUsername(authentication.getName()).getId_user();
+            Customers customer = customerRepository.findByUser(user);
+            model.addAttribute("customer", customer);
+        }
+        else {
+            Customers customer = customerRepository.findById_customer(id);
+            model.addAttribute("customer", customer);
+        }
+        return "/user/profile";
+    }
+
+
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Booking get requests, and bring the category list for the first dropdown
+     */
     @RequestMapping(value = "user/booking", method = RequestMethod.GET)
     public String listbook(Model model) {
 
@@ -90,6 +127,13 @@ public class UserController {
         }
         return "user/booking";
     }
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        The next 3 methods are for a list from database and retorn a json file to the jquery ajax function in the HTML page
+        they are for the dynamic cascading dropdowns for treatment / professional and time available, all depends on the first
+        dropdown category.
+        code based on tutorial by Learning Programming, 2019
+     */
     @ResponseBody
     @RequestMapping(value="/user/loadTreatmentsByCategory/{id}", method = RequestMethod.GET)
     public String loadTreatmentsByCategory(@PathVariable("id") int id){
@@ -111,7 +155,10 @@ public class UserController {
 
         return (bookingService.bookingAvailability(date,professionalID));
     }
-
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        booking post request, using booking service class to save the booking in  the database
+     */
     @ModelAttribute("booking")
     public BookingRegister booking() {
 
@@ -124,7 +171,10 @@ public class UserController {
 
         return "redirect:/user/myBookings";
     }
-
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Bring a list of all bookings to the looged user
+     */
     @RequestMapping(value = "/user/myBookings", method = RequestMethod.GET)
     public String userMyBookings(Model model, Principal principal){
         String user = principal.getName();
@@ -132,7 +182,10 @@ public class UserController {
         model.addAttribute("bookings", myBookings);
         return "user/myBookings";
     }
-
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Brings booking details finding by the ID passed by parameter from myBookings
+     */
     @RequestMapping(value = "/user/bookingDetails", method = RequestMethod.GET)
     public String getBookingDetails(@RequestParam(name="id") Integer id_booking, Model model){
         Bookings booking = bookingRepository.getOne(id_booking);
@@ -141,7 +194,10 @@ public class UserController {
         model.addAttribute("productsList", prodBookList);
         return"user/bookingDetails";
     }
-
+//-------------------------------------------------------------------------------------------------------------------//
+    /*
+        Method to change the booking status to cancelled
+     */
     @RequestMapping(value = "/user/cancelBooking", method = RequestMethod.GET)
     public String cancelBooking(@RequestParam(name="id") Integer id_booking, Model model){
         Bookings bookingToUpdate = bookingRepository.getOne(id_booking);

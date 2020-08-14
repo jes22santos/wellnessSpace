@@ -1,5 +1,6 @@
 package ie.cct.wellnessSpace.Validator;
 
+import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -11,7 +12,7 @@ public class BookingRegister {
     private Time time;
     private String notes;
 
-    public BookingRegister(int idTreatment, int idStaff, Date date, Time time, String notes) {
+    public BookingRegister(@NotEmpty int idTreatment, @NotEmpty int idStaff, @NotEmpty Date date, @NotEmpty Time time, @NotEmpty String notes) {
         this.idTreatment = idTreatment;
         this.idStaff = idStaff;
         this.date = date;

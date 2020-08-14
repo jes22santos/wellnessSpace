@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Wellness Space</title>
@@ -25,16 +25,47 @@
                     <a class="nav-link" href="/user/myAccount">My Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/myBookings">Bookings</a>
+                    <a class="nav-link" href="/user/myBookings">My Bookings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/profile">Profile</a>
+                    <a class="nav-link" href="/user/booking">New Booking</a>
                 </li>
             </ul>
             <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
         </div>
     </nav>
 </header>
-
+<div class="login"></div>
+<main role="main">
+<div class="container-fluid">
+    <div class="table">
+        <H3> Welcome <span th:text="${customer.getName()}+ ' ' + ${customer.getSurname()}"></span></H3>
+    </div>
+    <div class="table">
+        <a href="/user/booking" class="btn btn-sm btn-outline-info" >Book your treatment</a>
+    </div>
+    <div class="login"></div>
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="/img/counsoling.jpg" class="bd-placeholder-img rounded-circle" width="140" height="140" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+            <h2>Mental Treatment</h2>
+            <p>Treatments on common mental health problems such as depression, anxiety, compulsiveness. Learn to control yourself and win this battle with the help of our professionals</p>
+            <p><a class="btn btn-info" href="/mentalTreatments" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+            <img src="/img/skincare.jpg" class="bd-placeholder-img rounded-circle" width="140" height="140" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+            <h2>Facial Treatment</h2>
+            <p>Extraordinary tightening, cleansing, toning and facial smoothing for a more even complexion! Know the benefits of botox, lifting, facial detox and more. Don't let aging beat you, grow old with healthy skin</p>
+            <p><a class="btn btn-info" href="/facialTreatments" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+            <img src="/img/bodycare.jpg" class="bd-placeholder-img rounded-circle" width="140" height="140" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+            <h2>Body Treatments</h2>
+            <p>Free your mind and body with our massages and body treatments. We have a unique and exclusive techniques to lose fat tissue, make the orange aspect go away, detox your body with a perfect wrap and green clay .</p>
+            <p><a class="btn btn-info" href="/bodyTreatments" role="button">View details &raquo;</a></p>
+        </div>
+    </div>
+</div>
+</main>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Body Treatments</title>
@@ -31,7 +31,17 @@
                         <a class="nav-link" href="/bodyTreatments">Body Treatments</a>
                     </li>
                 </ul>
-                <a class="btn btn-sm btn-outline-info" href="/signin">Sign in</a>
+                <div sec:authorize="hasRole('USER')">
+                    <a class="btn btn-sm btn-outline-info" href="/user/myAccount">My Account</a>
+                    <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
+                </div>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a class="btn btn-sm btn-outline-info" href="/admin/myAccount">Admin Area</a>
+                    <a class="btn btn-sm btn-outline-info" href="/logout">Logout</a>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-sm btn-outline-info" href="/login">Sign in</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -48,7 +58,9 @@
                 <p>Are you tired of your stressed-out life? Are you looking for a facial or a full body treatment or a mental treatment?  </p>
                 <p>Join our space and allow yourself to breathe slowly. It’s time to finally let go. </p>
                 <br/>
-                <a class="btn btn-info btn-lg" href="#" role="button">Register now &raquo;</a>
+                <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-info btn-lg" href="/signup" role="button">Register now &raquo;</a>
+                </div>
             </div>
         </div>
         <div class="container-fluid" th:switch="${bodyTreatments}">
@@ -68,10 +80,10 @@
                     <tbody>
                     <tr th:each="treat : ${bodyTreatments}">
                         <td class="table-td" th:text="${treat.getName()}"></td>
-                        <td class="table-td" th:text="${treat.getCost()}"></td>
+                        <td class="table-td" th:text="${#numbers.formatDecimal(treat.getCost(), 0, 'COMMA', 2, 'POINT')}"></td>
                         <td class="table-td" th:text="${treat.getDuration()}"></td>
                         <td class="table-td" th:text="${treat.getDetails()}"></td>
-                        <td class="table-td"><button class="btn btn-sm btn-outline-info" >Book now</button></td>
+                        <td class="table-td"><a th:href="@{/user/bookings}"  class="btn btn-sm btn-outline-info" >Book now</a></td>
                     </tr>
                     </tbody>
                 </table>

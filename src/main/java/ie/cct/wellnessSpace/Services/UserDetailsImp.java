@@ -10,18 +10,18 @@ import java.util.*;
 public class UserDetailsImp implements UserDetails {
 
     private Users user;
+    /*
+        This class is part of the authentication process of spring security
+     */
     public UserDetailsImp(Users user){
         this.user = user;
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        //Extract list of Roles and add it into a arraylist type GrantedAuthority
-        //this.user.getRoles()(r ->{
+            Set<GrantedAuthority> authorities = new HashSet<>();
             GrantedAuthority authority = new SimpleGrantedAuthority(this.user.getRoles().getRole());
             authorities.add(authority);
-       // });
         return authorities;
     }
 

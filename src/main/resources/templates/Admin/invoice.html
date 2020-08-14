@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Wellness Space</title>
+    <link th:href="@{/CSS/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+</head>
+<body>
+<div class="login"></div>
+<div class="form-signup">
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label>Booking Code</label>
+                <input type="text" class="form-control" id="idBooking" th:value="${booking.getId_booking()}" th:placeholder="${booking.getId_booking()}">
+                </input>
+            </div>
+            <div class="form-group col-md-2">
+                <label>Booking Status</label>
+                <input type="text" class="form-control" th:placeholder="${booking.getStatus().getStatus()}"></input>
+            </div>
+            <div class="form-group col-md-2">
+                <lable>Customer</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getCustomer().getName()}+ ' ' + ${booking.getCustomer().getSurname()}"></input>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <lable>Date</lable>
+                <input type="text" class="form-control" th:placeholder="${#dates.format(booking.getDate(),'dd-MM-yyyy')}"></input>
+            </div>
+            <div class="col">
+                <lable>Time</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getTime()}"></input>
+            </div>
+            <div class="col">
+                <lable>Duration</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getTreatment().getDuration()}"></input>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <lable>Treatment</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getTreatment().getName()}"></input>
+            </div>
+            <div class="col">
+                <lable>Price</lable>
+                <input type="text" class="form-control" th:placeholder="${#numbers.formatDecimal(booking.getTreatment().getCost(), 0, 'COMMA', 2, 'POINT')}"></input>
+            </div>
+            <div class="col">
+                <lable>Professional</lable>
+                <input type="text" class="form-control" th:placeholder="${booking.getStaff().getName()}+ ' ' + ${booking.getStaff().getSurname()}"></input>
+            </div>
+        </div>
+        <div class="container-fluid" th:switch="${productsList}">
+            <h2 th:case="null">There is no product for this booking</h2>
+            <div class="container-fluid" th:case="*">
+                <table class="table">
+                    <thead>
+                    <tr class="table-tr">
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Cost unit</th>
+                        <th>Cost Total </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="prod : ${productsList}">
+                        <td class="table-td"  th:text="${prod.getProduct().getName()}"></td>
+                        <td class="table-td"  th:text="${prod.getQuantity()}"></td>
+                        <td class="table-td"  th:text="${#numbers.formatDecimal(prod.getProduct().getCost(), 0, 'COMMA', 2, 'POINT')}"></td>
+                        <td class="table-td"  th:text="${#numbers.formatDecimal(prod.getProduct().getCost(), 0, 'COMMA', 2, 'POINT')} * ${prod.getQuantity()}"></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-row">
+                <lable>Price Total</lable>
+                <input type="text" class="form-control" th:value="${#numbers.formatDecimal(priceTotal, 0, 'COMMA', 2, 'POINT')}"></input>
+        </div>
+        <div class="form-row">
+            <a th:href="@{/admin/invoiceDownload/(id=${booking.getId_booking()})}" class="btn btn-sm btn-outline-info" >Download</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
