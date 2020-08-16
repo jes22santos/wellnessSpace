@@ -23,19 +23,20 @@ public class StaffService {
     @Autowired
     private StaffRepository staffRepository;
 
-    private Staffs staff = new Staffs();
+
 
     /*
     Method to save a staff
      */
     public void save(StaffRegister staff, String username) {
+        Staffs newStaff = new Staffs();
         Users user = new Users(userRepository.findByUsername(username).getId_user());
         Category category = new Category(categoryRepository.findByN_category(staff.getCategory()).getId_category());
-        this.staff.setName(staff.getName());
-        this.staff.setSurname(staff.getSurname());
-        this.staff.setCredential(staff.getCredential());
-        this.staff.setUser(user);
-        this.staff.setCategory(category);
-        staffRepository.save(this.staff);
+        newStaff.setName(staff.getName());
+        newStaff.setSurname(staff.getSurname());
+        newStaff.setCredential(staff.getCredential());
+        newStaff.setUser(user);
+        newStaff.setCategory(category);
+        staffRepository.save(newStaff);
     }
 }

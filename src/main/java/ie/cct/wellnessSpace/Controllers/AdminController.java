@@ -1,10 +1,7 @@
 package ie.cct.wellnessSpace.Controllers;
 
 
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
 import ie.cct.wellnessSpace.Entities.*;
 import ie.cct.wellnessSpace.Repository.*;
 import ie.cct.wellnessSpace.Services.*;
@@ -16,7 +13,6 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -247,7 +243,7 @@ public class AdminController {
     @GetMapping("/admin/addProfileAdmin")
     public String addProfileAdmin(Model model) {
 
-        return "/admin/addProfileAdmin";
+        return "admin/addProfileAdmin";
     }
 
     @PostMapping("/admin/addProfileAdmin")

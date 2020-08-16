@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "favorable-mix-286516",
+  "private_key_id": "2a33a096557a7ab23e9662ab12f6022e4fb5b5a6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDaWYKI7nLw1kEL\nLaEjAhhAii9jrNakNj2mgd4q/evibzs8MkeZnJxuAA+YjcfUPNAJwe+SvDFYuJ+M\nD6S6XOp9oAdkpa3ahQ6l1770td1/IJqG9dRNzxDvAmHLTTx1XXjL+5EvmvtR+dIr\nTUm77yJNnhYiOz4cdSsz0n0XO0Iz/H9us3wtFDfcmviaekrQIOz8sUaznMqfpIsc\n7tYCSv31VCQIAfaDluVcOvNLfPfRc6HeRt0OKEj7w4Fw5ygKf8aPPafbCyntmnQt\nBKSvAaqM+IBDaAUhnHdpOPs8SmvvDh6e8hVMVa7/8kNlz6TYmpDYKjwjfxgX/neo\nQHwFhmS1AgMBAAECggEABKYBofnEQjnhCGRx9W5Iio80yKAfBpUN7IBVSisFDyB5\nGAfCcVsWhXen+cmRJr2sP7VgCVHLPHuGLLArrmORkRfEhdvm4mSfcm5pEcKfpKnE\neU7ZXznN27U1Kcdnf4tDVIjWasWXjwOM3Y53jw6WWuxx4i+RzX9LTg096EqYVv66\ngmzv6TkIi/WEUgrQHaCij4aHcSSU0K39xs0II7dDBgk3b3/nx9EYCA7f4WSqZgBG\nSk5g56yXRBSE5gWIhGrWdLt15H3NhhbfaoLNs8pA9xGjPb2C1HJdJxVCYcE5phER\nmww391NcLTvB8BlCDd/gbt9pNgZX5FkVA2mgQM92vQKBgQD2DKZX0eVLzuw4ADLP\nOsITB0Uj5bJ6ySmOyekZ9ePjCBAd6wTh4IUhuV1LHZQaN/BI1+ADTPN27iwgVHnS\ni4nHsCRa+q0919uxFQhfJ0qWBVacccwWfdk+lxQYDdaEaFBB3I/uAYgECO0dMTot\nLNRzVgpdYS0D1QNMrDjBLuCkNwKBgQDjLhWaH4VIeCHOZ24L4jbWgRPYfh28VJwX\njwlFv32Jt2uXE4xJ9ZQQsRKNXK3iJV3x+/vM4X1uA1sO2iF6FE/3aDzC0wITaTK2\nXOobwAg+wNmh4QGJ2pvjJ3MMLVzf44i7kXdk7J3ZgGZnnO31vZBmcBxOtLPKAe5M\nbi6mGzhgcwKBgGA3eiUFc4E9naoYicX32ETQpvzuqejSGWo5EuqP+VmioYrRiMs7\nnVQexJjHLE9EaLZTlMo1oU90u9S4tBrdbjekbdMWDAEPFF4fN3LeTpBz7fanmYOC\nGx4avkTZxHVqxVe8BJyyBJpvUyoDQhjAWyPvFYaGpa/F8NBe2KLSzg3pAoGAcRCZ\njbhMVFH9uUU+vslaM43QO7ogwH93pD37BmyUZTsVX/5JnvGLPHd0XUiX/epNBEc9\n/azoCR3AbvbfHGwJlH+bZfcwnEqKA7rghOkg8WJ3rhpW8q4LUZVrq87T31XV0kxG\nmMMumHZQARdYUyqCOIlpfT5wEIS/feiEbQU1HMMCgYBoURBalPRmw3+RcYv15P1V\nbQm+9InIAIS8m7ejnrfJf4eAgby7AydMCQsXraiHNc+9npEyvckbliAjcFFQDgqj\noO2HWssMU4107pd+NTj3ItwzqTruFbvVOjfHObjOfIApMLYG6DoElCUycULpBFrZ\nC3ADiDjDAmfZc+A/g3jjGg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "wellnessapp@favorable-mix-286516.iam.gserviceaccount.com",
+  "client_id": "112697938431520433652",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/wellnessapp%40favorable-mix-286516.iam.gserviceaccount.com"
+}

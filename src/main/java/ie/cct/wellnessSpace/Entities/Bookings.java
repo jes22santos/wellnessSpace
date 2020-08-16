@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 @Entity
-@Table
+@Table(name="bookings")
 public class Bookings {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="booking_seq")

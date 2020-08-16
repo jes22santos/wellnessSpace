@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.sql.Time;
 
 @Entity
-@Table
+@Table(name="time_slot")
 public class TimeSlot {
 
     @Id

@@ -11,6 +11,6 @@ public interface CustomerRepository extends JpaRepository<Customers, Integer> {
     Customers findById_customer(Integer id_customer);
 
 
-    @Query(value = "SELECT * from Customers  where id_user=?1", nativeQuery = true)
+    @Query(value = "SELECT * from customers  where id_user=?1", nativeQuery = true)
     Customers findByUser (Integer id_user);
 }

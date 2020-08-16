@@ -3,7 +3,7 @@ package ie.cct.wellnessSpace.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name="staffs")
 public class Staffs {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="staff_seq")

@@ -3,6 +3,7 @@ package ie.cct.wellnessSpace.Entities;
 import javax.persistence.*;
 
 @Entity
+@Table (name="category")
 public class Category {
 
     @Id
