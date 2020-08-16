@@ -1,6 +1,6 @@
 # wellnessSpace
 
-# Hosting Address http://www.wellnessspace.online
+# Hosting Address http://wellnessspace.online
 
 # Database is hosted in GCP 35.189.105.89
 
