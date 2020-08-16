@@ -8,4 +8,4 @@
 
 # Domain set in https://www.register365.com/
 
-#DockerHub Wellness Space docker image => jes22santos/appwellnessspace
+#DockerHub Wellness Space docker image => jes22santos/wellnessspace-app
